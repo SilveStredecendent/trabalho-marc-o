@@ -8,8 +8,8 @@ import org.springframework.ui.Model;
 
 import java.util.Optional;
 
-import br.com.etecpalmital.etim2019pw2.marcocarvalho.games.models.Genero;
-import br.com.etecpalmital.etim2019pw2.marcocarvalho.games.repositories.GeneroRepository;
+import br.com.etecpalmital.etim2019pw2.marcocarvalho.games.models.Plataforma;
+import br.com.etecpalmital.etim2019pw2.marcocarvalho.games.repositories.PlataformaRepository;
 
 @Controller
 @RequestMapping("/plataformas")
