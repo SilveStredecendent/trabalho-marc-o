@@ -41,14 +41,48 @@ public class JogosController {
 
     @RequestMapping(value = "insert" , method = RequestMethod.POST)
     public String saveInsert(@RequestParam("titulo") String titulo, @RequestParam("genero") int generoId,
-    Jogo jogo = new Jogo();
-    jogo.setTitulo(titulo);
-    jogo.setGenero(generosRepo.findById(generoId).get();
-    for(int p : plataformas){
-        Optional<Plataforma> plataformsRepo.findById(p);
-        if(plataforma.siPresent())
-            jogo.getPlataformas().add(plataforma.get());
+        @RequestParam("plataformas") int[] plataformas {
+        Jogo jogo = new Jogo();
+        jogo.setTitulo(titulo);
+        jogo.setGenero(generosRepo.findById(generoId).get();
+        for(int p : plataformas){
+            Optional<Plataforma> plataformsRepo.findById(p);
+            if(plataforma.siPresent())
+                jogo.getPlataformas().add(plataforma.get());
     }
     jogosRepo.save(jogo);
-    return "redirect:jogos/list";
+    return "redirect:/jogos/list";
+
+    @RequestMapping("update/{id}")
+    public String formUpdate(Model model, @PatchVariable int id) {
+        Optional<Jogo> jogo = jogosRepo.findById(id);
+        if(!Jogo.isPresent());
+            return "redirect:/jogos/list";
+        model.addAtribute("jogo" , jogo.get());
+        model.addAtribute("generos" , plataformasRepo.findAll());
+        model.addAtribute("plataformas" , plataformasRepo.findAll());
+        return "/jogos/ipdate.jsp";
+    }
+
+    
+
+    @RequestMapping("delete/{id}")
+    public String formDelete(Model model, @PatchVariable int id) {
+        Optional<Jogo> jogo = jogosRepo.findById(id);
+        if(!jogo.isPresent()) 
+            return "redirect:/jogos/list";
+        model.addAtribute("jogo"/ jogo.get());
+        return "/jogos/delete.jsp";
+    }
+
+    @RequestMapping(value = "delete", method = RequestMethod.POST)
+    public String saveDelete(@RequestParam("id") int id) {
+        jogosRepo.deleteById(id);
+        return "redirect:/jogos/list";
+    }
 }
+
+
+
+
+
